@@ -8,15 +8,15 @@
       <link href="/2024/07/10/NewHouse/"/>
       <url>/2024/07/10/NewHouse/</url>
       
-        <content type="html"><![CDATA[<h2 id="第一篇博客"><a href="#第一篇博客" class="headerlink" title="第一篇博客"></a>第一篇博客</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="在Windows环境下安装Docker-DeskTop"><a href="#在Windows环境下安装Docker-DeskTop" class="headerlink" title="在Windows环境下安装Docker DeskTop"></a>在Windows环境下安装Docker DeskTop</h2><p>今天完成了WIndows环境下的docker安装，docker其实在Linux环境下安装更方便，在Win11&#x2F;Win10环境下安装首先要准备操作系统的虚拟环境。</p><h3 id="安装Hyper-v"><a href="#安装Hyper-v" class="headerlink" title="安装Hyper-v"></a>安装Hyper-v</h3><p>需要再控制面板的系统界面中将以下服务打开，如果没有hyper-v选项的，可以运行以下代码。</p><blockquote><p><img src="/image.png" alt="alt text"><br><img src="/image-1.png" alt="alt text"></p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pushd</span> <span class="string">&quot;%~dp0&quot;</span></span><br><span class="line"><span class="built_in">dir</span> /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum &gt;hv.txt</span><br><span class="line"><span class="keyword">for</span> /f %%i <span class="keyword">in</span> (<span class="string">&#x27;findstr /i . hv.txt 2^&gt;nul&#x27;</span>) <span class="keyword">do</span> dism /online /norestart /add-package:<span class="string">&quot;%SystemRoot%\servicing\Packages\%%i&quot;</span></span><br><span class="line">del hv.txt</span><br><span class="line">Dism /online /enable-feature /featurename:Microsoft-Hyper-V -All /LimitAccess /ALL</span><br><span class="line">Pause</span><br></pre></td></tr></table></figure><p>确认打开之后，再下载安装<a href="https://link.csdn.net/?target=https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">wsl更新包</a>，安装完成后成功运行docker-desktop，其中电脑会重启几次设置Linux环境，另外，如果想在Win上安装Linux子系统的话也是可以的。</p>]]></content>
       
       
       
         <tags>
             
-            <tag> 游戏 </tag>
+            <tag> Linux </tag>
             
-            <tag> 艾尔登法环 </tag>
+            <tag> docker </tag>
             
         </tags>
       
