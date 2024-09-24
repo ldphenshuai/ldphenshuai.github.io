@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>后端日志-week05 | 学习杂记</title><meta name="author" content="DPDP"><meta name="copyright" content="DPDP"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="day01HttpServlet中的service方法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970protected void service(HttpServletRequest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后端日志-week05">
+<meta property="og:url" content="https://www.dpdpblog.online/2024/09/02/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week05/index.html">
+<meta property="og:site_name" content="学习杂记">
+<meta property="og:description" content="day01HttpServlet中的service方法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970protected void service(HttpServletRequest">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/07/10/52NHQoeG3mBMtT4.jpg">
+<meta property="article:published_time" content="2024-09-02T02:23:12.000Z">
+<meta property="article:modified_time" content="2024-09-06T09:27:07.657Z">
+<meta property="article:author" content="DPDP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/07/10/52NHQoeG3mBMtT4.jpg"><link rel="shortcut icon" href="/img/logo2.png"><link rel="canonical" href="https://www.dpdpblog.online/2024/09/02/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week05/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: DPDP","link":"链接: ","source":"来源: 学习杂记","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '后端日志-week05',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-06 17:27:07'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/07/10/52NHQoeG3mBMtT4.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="学习杂记"><span class="site-name">学习杂记</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">后端日志-week05</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-02T02:23:12.000Z" title="发表于 2024-09-02 10:23:12">2024-09-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-06T09:27:07.657Z" title="更新于 2024-09-06 17:27:07">2024-09-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="后端日志-week05"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h2><h3 id="HttpServlet中的service方法"><a href="#HttpServlet中的service方法" class="headerlink" title="HttpServlet中的service方法"></a>HttpServlet中的service方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//获取http request的method参数，其实就是html的form标签  </span></span><br><span class="line">        <span class="comment">//中method属性对应的字符串 </span></span><br><span class="line">        <span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> req.getMethod();</span><br><span class="line">        <span class="type">long</span> errMsg;</span><br><span class="line">        <span class="comment">//判断请求方式</span></span><br><span class="line">        <span class="keyword">if</span>(method.equals(<span class="string">&quot;GET&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">//获取最后被修改时间 </span></span><br><span class="line">            errMsg = <span class="built_in">this</span>.getLastModified(req);</span><br><span class="line">            <span class="keyword">if</span>(errMsg == -<span class="number">1L</span>) &#123;</span><br><span class="line">            <span class="comment">/**如果servlet不支持http request header的if-modified-since属性 </span></span><br><span class="line"><span class="comment">             * 则继续处理 </span></span><br><span class="line"><span class="comment">             **/</span>  </span><br><span class="line">                <span class="built_in">this</span>.doGet(req, resp);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//如果支持这个属性 </span></span><br><span class="line">                <span class="type">long</span> ifModifiedSince;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    ifModifiedSince = req.getDateHeader(<span class="string">&quot;If-Modified-Since&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IllegalArgumentException var9) &#123;</span><br><span class="line">                    ifModifiedSince = -<span class="number">1L</span>;</span><br><span class="line">                &#125;</span><br><span class="line">               <span class="comment">/** </span></span><br><span class="line"><span class="comment">                * 如果客户端的文件最后修改时间和服务器端的文件最后修改时间一致则返回304不需要修改状态 </span></span><br><span class="line"><span class="comment">                * 这样服务器就不返回html，浏览器读取本地缓存文件，否则重新获取服务器端的对应html文件 </span></span><br><span class="line"><span class="comment">                **/</span>  </span><br><span class="line">                <span class="keyword">if</span>(ifModifiedSince &lt; errMsg / <span class="number">1000L</span> * <span class="number">1000L</span>) &#123;</span><br><span class="line">                    <span class="built_in">this</span>.maybeSetLastModified(resp, errMsg);</span><br><span class="line">                    <span class="built_in">this</span>.doGet(req, resp);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    resp.setStatus(<span class="number">304</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;HEAD&quot;</span>)) &#123;</span><br><span class="line">            errMsg = <span class="built_in">this</span>.getLastModified(req);</span><br><span class="line">            <span class="built_in">this</span>.maybeSetLastModified(resp, errMsg);</span><br><span class="line">            <span class="built_in">this</span>.doHead(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;POST&quot;</span>)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.doPost(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;PUT&quot;</span>)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.doPut(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;DELETE&quot;</span>)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.doDelete(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;OPTIONS&quot;</span>)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.doOptions(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.equals(<span class="string">&quot;TRACE&quot;</span>)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.doTrace(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//如果请求不是以上的所有请求方式，该方法就会响应501错误，也就是不支持这种请求</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">errMsg1</span> <span class="operator">=</span> lStrings.getString(<span class="string">&quot;http.method_not_implemented&quot;</span>);</span><br><span class="line">            Object[] errArgs = <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;method&#125;;</span><br><span class="line">            errMsg1 = MessageFormat.format(errMsg1, errArgs);</span><br><span class="line">            resp.sendError(<span class="number">501</span>, errMsg1);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把ServletRequest和Response转成Http请求和响应</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest req, ServletResponse res)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        HttpServletRequest request;</span><br><span class="line">        HttpServletResponse response;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            request = (HttpServletRequest)req;</span><br><span class="line">            response = (HttpServletResponse)res;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassCastException var6) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServletException</span>(<span class="string">&quot;non-HTTP request or response&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.service(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips : HEAD: 与GET类似，但服务器在响应中只返回HTTP头部。<br>Options: 允许客户端查看服务器支持的HTTP方法。<br>Trace: 回显服务器接收到的请求。</p>
+</blockquote>
+<h3 id="java后端中的响应式编程"><a href="#java后端中的响应式编程" class="headerlink" title="java后端中的响应式编程"></a>java后端中的响应式编程</h3><h4 id="响应式编程的基石-响应流"><a href="#响应式编程的基石-响应流" class="headerlink" title="响应式编程的基石-响应流"></a>响应式编程的基石-响应流</h4><ul>
+<li>响应流必须无阻塞</li>
+<li>响应流必须是一个数据流</li>
+<li>必须可以异步执行</li>
+<li>处理背压（生产者可以感受到消费者反馈的消费压力，并根据压力进行动态调整生产速率）</li>
+</ul>
+<h4 id="Publiher"><a href="#Publiher" class="headerlink" title="Publiher"></a>Publiher</h4><p>由于响应流的特点，我们不能再返回一个简单的POJO对象来表示结果了。必须返回一个类似Java中的Future的概念，在有结果可用时通知消费者进行消费响应。</p>
+<p>Reactive Stream规范中这种被定义为<code>Publisher&lt;T&gt;</code> ，<code>Publisher&lt;T&gt;</code>是一个可以提供0-N个序列元素的提供者，并根据其订阅者<code>Subscriber&lt;? super T&gt;</code>的需求推送元素。一个<code>Publisher&lt;T&gt;</code>可以支持多个订阅者，并可以根据订阅者的逻辑进行推送序列元素。下面这个Excel计算就能说明一些<code>Publisher&lt;T&gt;</code>的特点。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-17.png" alt="alt text"></p>
+<p>A1-A9就可以看做<code>Publisher&lt;T&gt;</code>及其提供的元素序列。<code>A10-A13</code>分别是求和函数<code>SUM(A1:A9)</code>、平均函数<code>AVERAGE(A1:A9)</code>、最大值函数<code>MAX(A1:A9)</code>、最小值函数<code>MIN(A1:A9)</code>，可以看作订阅者<code>Subscriber</code>。</p>
+<h4 id="Flux和Mono的处理方式"><a href="#Flux和Mono的处理方式" class="headerlink" title="Flux和Mono的处理方式"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/felordcn/p/13747262.html">Flux和Mono的处理方式</a></h4><h3 id="网关的GlobalExcetionHandler"><a href="#网关的GlobalExcetionHandler" class="headerlink" title="网关的GlobalExcetionHandler"></a>网关的GlobalExcetionHandler</h3><blockquote>
+<p>tips : ServerWebExchange是Spring WebFlux框架中用于表示HTTP请求和响应的接口。ServerWebExchange接口提供了一组方法来访问HTTP请求和响应的相关信息，包括请求头、请求体、响应头和响应体等。它还提供了一些方法来操作请求和响应，例如设置或获取请求头、请求体、响应头和响应体等。</p>
+</blockquote>
+<h4 id="OKHttpClient"><a href="#OKHttpClient" class="headerlink" title="OKHttpClient"></a>OKHttpClient</h4><p>OKHttp是一个高效的HTTP客户端，具有以下默认特性：</p>
+<ul>
+<li>支持HTTP&#x2F;2，允许所有同一个主机地址的请求共享同一个socket连接</li>
+<li>连接池减少请求延时</li>
+<li>透明的GZIP压缩减少响应数据的大小</li>
+<li>缓存响应内容，避免一些完全重复的请求</li>
+</ul>
+<p>配置的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RestTemplateConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> HttpConfig httpConfig;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 没有实例化RestTemplate时，初始化RestTemplate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean(RestTemplate.class)</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>(getClientHttpRequestFactory());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用OkHttpClient作为底层客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> ClientHttpRequestFactory <span class="title function_">getClientHttpRequestFactory</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">OkHttpClient</span> <span class="variable">okHttpClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OkHttpClient</span>.Builder()</span><br><span class="line">                .connectTimeout(httpConfig.getConnTimeout(), TimeUnit.SECONDS)</span><br><span class="line">                .writeTimeout(httpConfig.getWriteTimeout(), TimeUnit.SECONDS)</span><br><span class="line">                .readTimeout(httpConfig.getReadTimeout(), TimeUnit.SECONDS)</span><br><span class="line">                .sslSocketFactory(SSLSocketConfig.getSSLSocketFactory(), SSLSocketConfig.getX509TrustManager())</span><br><span class="line">                .hostnameVerifier(SSLSocketConfig.getHostnameVerifier())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OkHttp3ClientHttpRequestFactory</span>(okHttpClient);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="day02"><a href="#day02" class="headerlink" title="day02"></a>day02</h2><h3 id="MySQL相关查询语句"><a href="#MySQL相关查询语句" class="headerlink" title="MySQL相关查询语句"></a>MySQL相关查询语句</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">desc</span> table_name; <span class="comment">--查看表结构</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> your_table_name</span><br><span class="line">MODIFY <span class="keyword">COLUMN</span> id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">FIRST</span>; <span class="comment">--将ID列移动到第一行</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实体类映射工具MapStruct"><a href="#实体类映射工具MapStruct" class="headerlink" title="实体类映射工具MapStruct"></a>实体类映射工具MapStruct</h3><blockquote>
+<p>tips : MapStruct的注解也是Mapper，此时导入的包是<code>org.mapstruct.Mapper</code>，而非Mybatis的包。</p>
+</blockquote>
+<p>在后端开发中一般会将实体类经过转换后（DO-&gt;RespVO(DTO)）才返回给前端，前端提交过来的对象也需要经过转换Entity实体才做存储；通常使用的BeanUtils.copyProperties方法也比较粗暴，不仅效率低下（使用反射）而且仅映射相同名的属性，多数情况下还需要手动编写对应的转换方法实现。</p>
+<p>插件MapStruct以接口方法结合注解优雅实现对象转换，MapStruct生成器生成代码以更贴近原生的Setter、Getter方法处理属性映射更为高效。</p>
+<h4 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserConvert</span> &#123;</span><br><span class="line">    <span class="type">UserConvert</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> Mappers.getMapper(UserConvert.class);</span><br><span class="line">    <span class="meta">@Mapping(source = &quot;name&quot;, target = &quot;userName&quot;)</span> <span class="comment">//这个注解不写也可以，只有当字段名称不一样的时候需要手动写</span></span><br><span class="line">    <span class="meta">@Mapping(target = &quot;username&quot;, ignore = true)</span> <span class="comment">//表示忽略字段</span></span><br><span class="line">    <span class="meta">@Mapping(target = &quot;createdAt&quot;, expression = &quot;java(java.time.LocalDateTime.now())&quot;)</span> <span class="comment">//也可以映射常量</span></span><br><span class="line">    UserVO <span class="title function_">toVO</span><span class="params">(User entity)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(<span class="number">0</span>, <span class="string">&quot;Tester&quot;</span>, <span class="number">1</span>, <span class="string">&quot;上海市徐汇区&quot;</span>);</span><br><span class="line">    <span class="type">UserVO</span> <span class="variable">userVO</span> <span class="operator">=</span> UserConvert.INSTANCE.toVO(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="linux开机自启动jar包的流程"><a href="#linux开机自启动jar包的流程" class="headerlink" title="linux开机自启动jar包的流程"></a>linux开机自启动jar包的流程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="comment">#在文件中添加以下内容,表示开机后100秒后执行后面的命令</span></span><br><span class="line"><span class="comment">#其中/home/dmx/dmxStartup.sh是执行启动jar包的shell脚本</span></span><br><span class="line"></span><br><span class="line">@reboot <span class="built_in">sleep</span> 100 &amp;&amp; /home/dmx/dmxStartup.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h2><h3 id="Redis相关知识"><a href="#Redis相关知识" class="headerlink" title="Redis相关知识"></a>Redis相关知识</h3><h4 id="引入Lua脚本的目的"><a href="#引入Lua脚本的目的" class="headerlink" title="引入Lua脚本的目的"></a>引入Lua脚本的目的</h4><ol>
+<li>保证原子性<br>在 Redis 中，所有的 Lua 脚本是作为一个原子操作执行的。换句话说，在脚本执行期间，Redis 不会处理其他客户端的命令。</li>
+<li>减少网络延迟<br>Redis 是一个基于客户端-服务器的系统，每个命令都需要客户端与服务器之间进行一次通信。如果一个复杂的操作需要多个命令，频繁的网络通信会导致延迟。通过 Lua 脚本，可以将多个命令合并到一个脚本中发送给服务器，减少网络往返次数，从而提高性能。</li>
+<li>执行复杂逻辑和操作灵活性<br>Lua 脚本提供了一种在 Redis 服务器端编写复杂逻辑的方法，允许在执行 Redis 命令时加入条件判断、循环等控制结构。</li>
+</ol>
+<h4 id="在SpringBoot项目中使用Lua脚本"><a href="#在SpringBoot项目中使用Lua脚本" class="headerlink" title="在SpringBoot项目中使用Lua脚本"></a>在SpringBoot项目中使用Lua脚本</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DefaultRedisScript&lt;Long&gt; UNLOCK_SCRIPT;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    UNLOCK_SCRIPT = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    UNLOCK_SCRIPT.setLocation(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;unlock.lua&quot;</span>));</span><br><span class="line">    UNLOCK_SCRIPT.setResultType(Long.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unLock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//使用lua脚本保证操作原子性</span></span><br><span class="line">        stringRedisTemplate.execute(UNLOCK_SCRIPT</span><br><span class="line">                , Collections.singletonList(KET_PREFIX+name)</span><br><span class="line">                ,ID_PREFIX+Thread.currentThread().getId());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redis的key分类形式"><a href="#Redis的key分类形式" class="headerlink" title="Redis的key分类形式"></a>Redis的key分类形式</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-18.png" alt="alt text"></p>
+<h2 id="day04"><a href="#day04" class="headerlink" title="day04"></a>day04</h2><blockquote>
+<p>tips : @TableId注解默认是自增的</p>
+</blockquote>
+<p>和下列配置有关：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">true</span> <span class="comment"># 虽然默认为 true ，但是还是显示去指定下。</span></span><br><span class="line">  <span class="attr">global-config:</span></span><br><span class="line">    <span class="attr">db-config:</span></span><br><span class="line">      <span class="attr">id-type:</span> <span class="string">NONE</span> <span class="comment"># “智能”模式，基于 IdTypeEnvironmentPostProcessor + 数据源的类型，自动适配成 AUTO、INPUT 模式。</span></span><br><span class="line">      <span class="comment">#      id-type: AUTO # 自增 ID，适合 MySQL 等直接自增的数据库</span></span><br><span class="line">      <span class="comment">#      id-type: INPUT # 用户输入 ID，适合 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库</span></span><br><span class="line">      <span class="comment">#      id-type: ASSIGN_ID # 分配 ID，默认使用雪花算法。注意，Oracle、PostgreSQL、Kingbase、DB2、H2 数据库时，需要去除实体类上的 @KeySequence 注解</span></span><br><span class="line">      <span class="attr">logic-delete-value:</span> <span class="number">1</span> <span class="comment"># 逻辑已删除值(默认为 1)</span></span><br><span class="line">      <span class="attr">logic-not-delete-value:</span> <span class="number">0</span> <span class="comment"># 逻辑未删除值(默认为 0)</span></span><br><span class="line">  <span class="attr">type-aliases-package:</span> <span class="string">$&#123;travel.info.base-package&#125;.dal.dataobject</span> <span class="comment"># travel.info.base-package在dal(mysql)包下面</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="day05"><a href="#day05" class="headerlink" title="day05"></a>day05</h2><blockquote>
+<p>tips: <a target="_blank" rel="noopener" href="https://blog.csdn.net/SUMMERENT/article/details/129587241">MybatisX快速生成接口、实体类以及xml的操作</a></p>
+</blockquote>
+<h3 id="在后端项目中，先建库还是先建表"><a href="#在后端项目中，先建库还是先建表" class="headerlink" title="在后端项目中，先建库还是先建表"></a>在后端项目中，先建库还是先建表</h3><ul>
+<li>如果你的项目规模较大、数据库设计较为复杂，可以先设计 MySQL 数据表，确保数据结构清晰、稳定。</li>
+<li>如果你正在开发一个相对灵活或敏捷的项目，且使用了 ORM 工具，则可以先创建实体类，通过代码生成数据库表。<br>对于很多现代 Java 后端项目，开发者往往选择先创建实体类，然后通过 ORM 工具自动生成数据库表的方式，灵活应对业务变化，并且可以减少维护工作。</li>
+</ul>
+<h3 id="根据实体类自动建表的方案（JPA）"><a href="#根据实体类自动建表的方案（JPA）" class="headerlink" title="根据实体类自动建表的方案（JPA）"></a>根据实体类自动建表的方案（JPA）</h3><p>在连接数据库的时候会自动创建，（其实感觉写完实体类，让chatgpt帮你写下sql建表也行。）</p>
+<h4 id="1-导入JPA依赖与配置"><a href="#1-导入JPA依赖与配置" class="headerlink" title="1.导入JPA依赖与配置"></a>1.导入JPA依赖与配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--MySQL依赖 用于jdbc连接--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="comment">&lt;!--jpa依赖 自动建表--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!--mybatis依赖 用于操作数据库的crud,可以不用到，若是业务需要可以改为mybatis--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>JPA配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;!--配置数据库连接与jpa的yml配置--&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/mybatis_plus?userSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT%2B8</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">update</span></span><br><span class="line">                <span class="comment">#create----每次运行该程序，没有表格会新建表格，表内有数据会清空</span></span><br><span class="line">                <span class="comment">#create-drop----每次程序结束的时候会清空表</span></span><br><span class="line">                <span class="comment">#update----每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新</span></span><br><span class="line">                <span class="comment">#validate----运行程序会校验数据与数据库的字段类型是否相同，不同会报错</span></span><br><span class="line">      <span class="attr">dialect:</span> <span class="string">org.hibernate.dialect.MySQL5InnoDBDialect</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-创建实体类"><a href="#2-创建实体类" class="headerlink" title="2.创建实体类"></a>2.创建实体类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;demo_user&quot;)</span></span><br><span class="line"><span class="meta">@TableName(&quot;demo_user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="meta">@TableId(type = IdType.AUTO)</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;userid&quot;,columnDefinition = &quot;int comment &#x27;主键ID&#x27;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer userId;</span><br><span class="line">    <span class="meta">@Column(name = &quot;name&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Column(name = &quot;age&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@Column(name = &quot;email&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Column(name = &quot;phone&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-注解属性"><a href="#3-注解属性" class="headerlink" title="3. 注解属性"></a>3. 注解属性</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-19.png" alt="alt text"></p>
+<h3 id="建表时候的要求"><a href="#建表时候的要求" class="headerlink" title="建表时候的要求"></a>建表时候的要求</h3><ol>
+<li>表名：见名知意，如user_name;</li>
+<li>大小写：尽量都使用小写字母；</li>
+<li>分隔符：尽量不使用空格和特殊字符，数据库名、表名和列名之间用下划线分隔；</li>
+<li>字段名称：见名知意，尽量避免用不容易理解的缩写或拼音，统一字段，比如状态都用status</li>
+<li>普通索引和联合索引用ix_前缀，唯一索引用ux_前缀。</li>
+<li>字段类型：根据业务尽量选占用存储小的字段类型</li>
+<li>字段长度：varchar和char类型长度为字符长度，其余类型代表的都是字节长度。</li>
+<li>字段个数：每张表<strong>不超过20个字段</strong>，复杂的拆成多张表。</li>
+<li>NOT NULL：在定义字段时，尽量明确该字段是否Not Null。因为在innodb中，需要额外空间存储NULL值；其次NULL值可能会导致索引失效；最后NULL值只能用is null或者is not null判断，“&#x3D;&#x3D;”判断永远返回False</li>
+<li>外键：互联网系统中一般不设置外键。</li>
+<li>时间字段：<strong>优先使用datetime字段</strong>，其保存时间范围更大。</li>
+<li>索引：在经常查询的字段上建立索引，同时也考虑索引的数量和长度，避免影响性能，<strong>单表索引数量不超过5个</strong></li>
+<li>唯一索引：<strong>使用频率很高</strong>，一般在不怎么更新的字段上加唯一索引（比如部门、机构等），创建唯一索引时，<strong>相关字段不能出现NULL值</strong>，不然唯一索引会失效。</li>
+<li>大字段：如用户评论等，不建议使用text、blob类型（定义VarChar类型比较合理），可以考虑拆表或者存储在其他地方。</li>
+</ol>
+<h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><h4 id="唯一索引特点"><a href="#唯一索引特点" class="headerlink" title="唯一索引特点"></a>唯一索引特点</h4><ul>
+<li>唯一索引的值必须是唯一的，不允许重复。</li>
+<li>唯一索引可以提高数据的访问速度，因为Mysql会对唯一索引进行优化。</li>
+<li>唯一索引可以通过UNIQUE INDEX关键词在表中指定，也可以在创建表之后使用ALTER TABLE语句添加唯一索引。</li>
+</ul>
+<h4 id="唯一索引使用场景"><a href="#唯一索引使用场景" class="headerlink" title="唯一索引使用场景"></a>唯一索引使用场景</h4><p>唯一索引适合用于需要保证数据列唯一性的情况，例如用户表中的邮箱字段。唯一索引可以避免插入重复的数据，保证数据的一致性和准确性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.dpdpblog.online">DPDP</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.dpdpblog.online/2024/09/02/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week05/">https://www.dpdpblog.online/2024/09/02/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week05/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.dpdpblog.online" target="_blank">学习杂记</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/07/10/52NHQoeG3mBMtT4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/09/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week06/" title="后端日志-week06"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/07/10/CWtjN4LSmrgbn2O.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">后端日志-week06</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/29/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%97%A5%E5%BF%97week04/" title="大模型日志week02"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/07/10/5iQM4IOeEqPs9oT.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大模型日志week02</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DPDP</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ldphenshuai"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ldphenshuai" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#day01"><span class="toc-number">1.</span> <span class="toc-text">day01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpServlet%E4%B8%AD%E7%9A%84service%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">HttpServlet中的service方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E5%90%8E%E7%AB%AF%E4%B8%AD%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">java后端中的响应式编程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%9A%84%E5%9F%BA%E7%9F%B3-%E5%93%8D%E5%BA%94%E6%B5%81"><span class="toc-number">1.2.1.</span> <span class="toc-text">响应式编程的基石-响应流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Publiher"><span class="toc-number">1.2.2.</span> <span class="toc-text">Publiher</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux%E5%92%8CMono%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">Flux和Mono的处理方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E5%85%B3%E7%9A%84GlobalExcetionHandler"><span class="toc-number">1.3.</span> <span class="toc-text">网关的GlobalExcetionHandler</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#OKHttpClient"><span class="toc-number">1.3.1.</span> <span class="toc-text">OKHttpClient</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day02"><span class="toc-number">2.</span> <span class="toc-text">day02</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E7%9B%B8%E5%85%B3%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.1.</span> <span class="toc-text">MySQL相关查询语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB%E6%98%A0%E5%B0%84%E5%B7%A5%E5%85%B7MapStruct"><span class="toc-number">2.2.</span> <span class="toc-text">实体类映射工具MapStruct</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%94%A8%E4%BE%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">简单用例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8jar%E5%8C%85%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">2.3.</span> <span class="toc-text">linux开机自启动jar包的流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day03"><span class="toc-number">3.</span> <span class="toc-text">day03</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="toc-number">3.1.</span> <span class="toc-text">Redis相关知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5Lua%E8%84%9A%E6%9C%AC%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">引入Lua脚本的目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8SpringBoot%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8Lua%E8%84%9A%E6%9C%AC"><span class="toc-number">3.1.2.</span> <span class="toc-text">在SpringBoot项目中使用Lua脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E7%9A%84key%E5%88%86%E7%B1%BB%E5%BD%A2%E5%BC%8F"><span class="toc-number">3.1.3.</span> <span class="toc-text">Redis的key分类形式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day04"><span class="toc-number">4.</span> <span class="toc-text">day04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day05"><span class="toc-number">5.</span> <span class="toc-text">day05</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E4%B8%AD%EF%BC%8C%E5%85%88%E5%BB%BA%E5%BA%93%E8%BF%98%E6%98%AF%E5%85%88%E5%BB%BA%E8%A1%A8"><span class="toc-number">5.1.</span> <span class="toc-text">在后端项目中，先建库还是先建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%AE%9E%E4%BD%93%E7%B1%BB%E8%87%AA%E5%8A%A8%E5%BB%BA%E8%A1%A8%E7%9A%84%E6%96%B9%E6%A1%88%EF%BC%88JPA%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">根据实体类自动建表的方案（JPA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5JPA%E4%BE%9D%E8%B5%96%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.1.</span> <span class="toc-text">1.导入JPA依赖与配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="toc-number">5.2.2.</span> <span class="toc-text">2.创建实体类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B3%A8%E8%A7%A3%E5%B1%9E%E6%80%A7"><span class="toc-number">5.2.3.</span> <span class="toc-text">3. 注解属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E8%A1%A8%E6%97%B6%E5%80%99%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">5.3.</span> <span class="toc-text">建表时候的要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95"><span class="toc-number">5.4.</span> <span class="toc-text">唯一索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E7%89%B9%E7%82%B9"><span class="toc-number">5.4.1.</span> <span class="toc-text">唯一索引特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">5.4.2.</span> <span class="toc-text">唯一索引使用场景</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By DPDP</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">希望你还有旺盛的生活欲望。<p><a target="_blank" href="https://hexo.io/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

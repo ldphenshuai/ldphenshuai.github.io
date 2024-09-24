@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>后端日志-week06 | 学习杂记</title><meta name="author" content="DPDP"><meta name="copyright" content="DPDP"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="day01MySQL查询语句查询结果去重使用Distinct和group by都能够实现去重的效果。  distinct只能放在查询字段的最前面，不能放在查询字段的中间或者后面。distinct 对后面所有的字段均起作用，即 去重是查询的所有字段完全重复的数据，而不是只对 distinct 后面连接的单个字段重复的数据。因此，Distinct查询多个字段只对一个字段去重是无法实现的。SELECT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后端日志-week06">
+<meta property="og:url" content="https://www.dpdpblog.online/2024/09/09/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week06/index.html">
+<meta property="og:site_name" content="学习杂记">
+<meta property="og:description" content="day01MySQL查询语句查询结果去重使用Distinct和group by都能够实现去重的效果。  distinct只能放在查询字段的最前面，不能放在查询字段的中间或者后面。distinct 对后面所有的字段均起作用，即 去重是查询的所有字段完全重复的数据，而不是只对 distinct 后面连接的单个字段重复的数据。因此，Distinct查询多个字段只对一个字段去重是无法实现的。SELECT">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/07/10/CWtjN4LSmrgbn2O.jpg">
+<meta property="article:published_time" content="2024-09-09T01:05:25.000Z">
+<meta property="article:modified_time" content="2024-09-14T09:35:31.401Z">
+<meta property="article:author" content="DPDP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/07/10/CWtjN4LSmrgbn2O.jpg"><link rel="shortcut icon" href="/img/logo2.png"><link rel="canonical" href="https://www.dpdpblog.online/2024/09/09/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week06/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: DPDP","link":"链接: ","source":"来源: 学习杂记","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '后端日志-week06',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-14 17:35:31'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/07/10/CWtjN4LSmrgbn2O.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="学习杂记"><span class="site-name">学习杂记</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">后端日志-week06</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-09T01:05:25.000Z" title="发表于 2024-09-09 09:05:25">2024-09-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-14T09:35:31.401Z" title="更新于 2024-09-14 17:35:31">2024-09-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="后端日志-week06"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h2><h3 id="MySQL查询语句"><a href="#MySQL查询语句" class="headerlink" title="MySQL查询语句"></a>MySQL查询语句</h3><h4 id="查询结果去重"><a href="#查询结果去重" class="headerlink" title="查询结果去重"></a>查询结果去重</h4><p>使用Distinct和group by都能够实现去重的效果。</p>
+<ol>
+<li><code>distinct</code>只能放在查询字段的最前面，不能放在查询字段的中间或者后面。distinct 对后面所有的字段均起作用，即 去重是查询的所有字段完全重复的数据，而不是只对 distinct 后面连接的单个字段重复的数据。因此，Distinct查询多个字段只对一个字段去重是无法实现的。<code>SELECT DISTINCT university from user_profile;</code></li>
+<li><code>group by</code>一般与聚类函数使用（如count()&#x2F;sum()等），也可单独使用。<code>group by</code>可以使查询结果按一个或者多个字段进行分组（查询的字段可以不等于group by的字段）,<code>SELECT university from user_profile GROUP BY university</code>;</li>
+</ol>
+<h4 id="查询结果限制返回行数"><a href="#查询结果限制返回行数" class="headerlink" title="查询结果限制返回行数"></a>查询结果限制返回行数</h4><ol>
+<li>LIMIT n：从第0+1(m&#x3D;0)条开始，取n条数据，是LIMIT 0,n的缩写</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> device_id</span><br><span class="line"><span class="keyword">FROM</span> user_profile</span><br><span class="line">LIMIT <span class="number">2</span> </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>LIMIT m,n:从第m+1条开始，取n条数据</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> device_id</span><br><span class="line"><span class="keyword">FROM</span> user_profile</span><br><span class="line">LIMIT <span class="number">0</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>LIMIT n OFFSET m:跳过前m条数据，从第m+1条开始取n条数据</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> device_id</span><br><span class="line"><span class="keyword">FROM</span> user_profile</span><br><span class="line">LIMIT <span class="number">2</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips : between是闭区间，包含了两个端点。</p>
+</blockquote>
+<h4 id="不等于的几种写法"><a href="#不等于的几种写法" class="headerlink" title="不等于的几种写法"></a>不等于的几种写法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> device_id,gender,age,university</span><br><span class="line"><span class="keyword">from</span> user_profile</span><br><span class="line">#<span class="keyword">where</span> university <span class="operator">!=</span> <span class="string">&#x27;复旦大学&#x27;</span></span><br><span class="line">#<span class="keyword">where</span> university <span class="operator">&lt;&gt;</span> <span class="string">&#x27;复旦大学&#x27;</span></span><br><span class="line">#<span class="keyword">where</span> university <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;复旦大学&#x27;</span></span><br><span class="line">#<span class="keyword">where</span> university <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;复旦大学&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="空值的过滤"><a href="#空值的过滤" class="headerlink" title="空值的过滤"></a>空值的过滤</h4><p>过滤空值的三种方法：<br>(1) Where 列名 is not null（推荐使用）<br>(2) Where 列名 !&#x3D; ‘null’<br>(3) Where 列名 &lt;&gt; ‘null’</p>
+<h4 id="or的使用"><a href="#or的使用" class="headerlink" title="or的使用"></a>or的使用</h4><p>当查询列含有索引，使用or将会使索引失效，进行全表扫描，此时推荐使用UNION进行联合查询，二者各自走索引。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 走索引</span></span><br><span class="line"><span class="keyword">SELECT</span> `device_id`,`gender`,`age`,`university`,`gpa` <span class="keyword">FROM</span> `user_profile` <span class="keyword">WHERE</span> `university` <span class="operator">=</span> <span class="string">&#x27;北京大学&#x27;</span></span><br><span class="line"><span class="keyword">UNION</span> </span><br><span class="line"><span class="keyword">SELECT</span> `device_id`,`gender`,`age`,`university`,`gpa` <span class="keyword">FROM</span> `user_profile` <span class="keyword">WHERE</span> `gpa`<span class="operator">&gt;</span><span class="number">3.7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 全表扫描</span></span><br><span class="line"><span class="keyword">select</span> device_id,gender,age,university,gpa <span class="keyword">from</span> user_profile <span class="keyword">where</span> gpa<span class="operator">&gt;</span><span class="number">3.7</span> <span class="keyword">or</span> university<span class="operator">=</span><span class="string">&#x27;北京大学&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="sql中的字符匹配"><a href="#sql中的字符匹配" class="headerlink" title="sql中的字符匹配"></a>sql中的字符匹配</h4><ol>
+<li>_代表任意一个字符</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 学生表 <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;张__&#x27;</span><span class="operator">/</span><span class="operator">/</span>查询姓“张”且名字是<span class="number">3</span>个字的学生姓名。</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>% 代表任意数量（包括0个）的字符</p>
+</li>
+<li><p>[]匹配[]中的任意一个字符(若要比较的字符是连续的，则可以用连字符“-”表 达)，</p>
+</li>
+<li><p>[^ ] 不匹配[ ]中的任意一个字符</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 学生表 <span class="keyword">WHERE</span> 姓名 <span class="keyword">LIKE</span> <span class="string">&#x27;[张李刘]%&#x27;</span> <span class="comment">--查找姓张、李、刘</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 学生表 <span class="keyword">WHERE</span> 姓名 <span class="keyword">LIKE</span> <span class="string">&#x27;[^张李刘]%&#x27;</span> <span class="comment">--查找不姓张、李、刘</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h4><p>AVG()、COUNT()、SUM()、MAX()、MIN()、ROUND();<br>HAVING是在聚合函数之后，GROUP BY 之前的条件。主要用于过滤分组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--聚合函数应用经典案例</span></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">  <span class="built_in">count</span>(gender) <span class="keyword">as</span> male_num,</span><br><span class="line">  round(<span class="built_in">avg</span>(gpa),<span class="number">1</span>) <span class="keyword">as</span> avg_gpa</span><br><span class="line"><span class="keyword">from</span> user_profile <span class="keyword">GROUP</span> <span class="keyword">BY</span> gender </span><br><span class="line"><span class="keyword">having</span> gender <span class="operator">=</span><span class="string">&#x27;male&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> gender,university,<span class="built_in">count</span>(gender) <span class="keyword">as</span> user_num,</span><br><span class="line"><span class="built_in">avg</span>(active_days_within_30) <span class="keyword">as</span> avg_active_days,<span class="built_in">avg</span>(question_cnt) <span class="keyword">as</span> avg_question_cnt</span><br><span class="line"><span class="keyword">from</span> user_profile</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">by</span> university,gender; <span class="comment">--考虑多列，多列一摸一样的分在一组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--聚合函数用Orderby排序</span></span><br><span class="line"><span class="keyword">SELECT</span> university,</span><br><span class="line"><span class="built_in">AVG</span>(question_cnt)  <span class="keyword">AS</span> avg_question_cnt</span><br><span class="line"><span class="keyword">FROM</span> user_profile</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> university</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">AVG</span>(question_cnt) <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="连接查询与子查询"><a href="#连接查询与子查询" class="headerlink" title="连接查询与子查询"></a>连接查询与子查询</h4><h5 id="join"><a href="#join" class="headerlink" title="join"></a>join</h5><p>Join和Inner Join是相同的，表示在表中存在至少一个匹配时返回行，相当于返回的是两个的交集。<br>LeftJoin从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ol>
+<li><code>A Inner Join B</code>：类似于取A和B的交集，只取满足条件的相交部分。</li>
+<li><code>A Left Join B</code>：左连接，以左表A为基础，取A表的全部行，B满足On条件的取对应行，不满足的取NULL。</li>
+<li><code>A Right Join B</code>：有连接，以右表B为基础，取B表的全部行，A满足On条件的取对应行，不满足的取NULL。</li>
+<li><code>A Full Outer Join B</code>：类似于取A和B的并集。全都取，但彼此没有对应的值就取NULL。</li>
+</ol>
+<h5 id="在进行连接操作时where和on的区别"><a href="#在进行连接操作时where和on的区别" class="headerlink" title="在进行连接操作时where和on的区别"></a>在进行连接操作时where和on的区别</h5><ul>
+<li>ON条件是在生成临时表时使用的条件，它不管ON中的条件是否满足，都会返回左表中的数据。</li>
+<li>where 条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有 left join 的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。</li>
+</ul>
+<blockquote>
+<p>tips : 子查询返回多个值只能用<code>in</code>，确保只返回一个值可以用<code>=</code>。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 子查询方式</span></span><br><span class="line"><span class="keyword">select</span> device_id,question_id,<span class="keyword">result</span></span><br><span class="line"><span class="keyword">from</span> question_practice_detail</span><br><span class="line"><span class="keyword">where</span> device_id <span class="keyword">in</span> (</span><br><span class="line">     <span class="keyword">select</span> device_id</span><br><span class="line">     <span class="keyword">from</span> user_profile</span><br><span class="line">     <span class="keyword">where</span> university<span class="operator">=</span><span class="string">&#x27;浙江大学&#x27;</span></span><br><span class="line"> )</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> question_id;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Join方式</span></span><br><span class="line"><span class="keyword">select</span> q.device_id,q.question_id,q.result</span><br><span class="line"><span class="keyword">from</span> question_practice_detail q <span class="keyword">join</span> user_profile u <span class="keyword">on</span> q.device_id<span class="operator">=</span>u.device_id</span><br><span class="line"><span class="keyword">where</span> u.university<span class="operator">=</span><span class="string">&#x27;浙江大学&#x27;</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> q.question_id;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 聚合函数和连接查询与having混用</span></span><br><span class="line"><span class="comment">-- 查看参加了答题的山东大学的用户在不同难度下的平均答题题目数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> u.university,q2.difficult_level,<span class="built_in">count</span>(q1.question_id)<span class="operator">/</span><span class="built_in">count</span>(<span class="keyword">distinct</span> q1.device_id)</span><br><span class="line"><span class="keyword">from</span> user_profile u</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> question_practice_detail q1</span><br><span class="line"><span class="keyword">ON</span> u.device_id<span class="operator">=</span>q1.device_id</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> question_detail q2</span><br><span class="line"><span class="keyword">on</span> q1.question_id<span class="operator">=</span>q2.question_id</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> u.university,q2.difficult_level</span><br><span class="line"><span class="keyword">having</span> u.university<span class="operator">=</span><span class="string">&#x27;山东大学&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Union与Union-all的使用（or不走索引时，考虑Union）"><a href="#Union与Union-all的使用（or不走索引时，考虑Union）" class="headerlink" title="Union与Union all的使用（or不走索引时，考虑Union）"></a>Union与Union all的使用（or不走索引时，考虑Union）</h4><ul>
+<li>结果集：<code>UNION</code>会在结果集中自动去除重复的行并会自动排序，会带来一定的性能开销。UNION ALL不会进行排序也不会去重，结果集顺序由各个子查询顺序决定，</li>
+</ul>
+<h4 id="IF、CASE-WHEN、COALESCE等函数的使用"><a href="#IF、CASE-WHEN、COALESCE等函数的使用" class="headerlink" title="IF、CASE WHEN、COALESCE等函数的使用"></a>IF、CASE WHEN、COALESCE等函数的使用</h4><p>IF语句和CASE WHEN语句通常用于根据某些条件返回不同值的函数。<br>if（x&#x3D;n,a,b）表示如果x&#x3D;n,则返回a，否则返回b。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- IF下面返回两列，一列是25岁及以上，另一列是25岁以下。</span></span><br><span class="line"><span class="keyword">Select</span></span><br><span class="line">if(age<span class="operator">&gt;=</span><span class="number">25</span>,<span class="string">&#x27;25岁及以上&#x27;</span>,<span class="string">&#x27;25岁以下&#x27;</span> ) <span class="keyword">as</span> age_cut,</span><br><span class="line"><span class="built_in">count</span>(device_id) <span class="keyword">as</span> number</span><br><span class="line"><span class="keyword">From</span> user_profile</span><br><span class="line"><span class="keyword">Group</span> <span class="keyword">by</span> age_cut</span><br><span class="line"></span><br><span class="line"><span class="comment">--  CASE</span></span><br><span class="line"><span class="keyword">select</span> device_id,gender,</span><br><span class="line"><span class="keyword">case</span></span><br><span class="line">    <span class="keyword">when</span> age<span class="operator">&lt;</span><span class="number">20</span> <span class="keyword">then</span> <span class="string">&#x27;20岁以下&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> age<span class="operator">&lt;</span><span class="number">25</span> <span class="keyword">then</span> <span class="string">&#x27;20-24岁&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> age<span class="operator">&gt;=</span><span class="number">25</span> <span class="keyword">then</span> <span class="string">&#x27;25岁及以上&#x27;</span></span><br><span class="line">    <span class="keyword">else</span> <span class="string">&#x27;其他&#x27;</span></span><br><span class="line"><span class="keyword">end</span> age_cut</span><br><span class="line"><span class="keyword">from</span> user_profile;</span><br></pre></td></tr></table></figure>
+
+<h2 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h2><h3 id="Spring-WebFlux"><a href="#Spring-WebFlux" class="headerlink" title="Spring-WebFlux"></a>Spring-WebFlux</h3><h4 id="响应式编程"><a href="#响应式编程" class="headerlink" title="响应式编程"></a>响应式编程</h4><blockquote>
+<p>tips : 受欢迎的web库Vertx完美支持协程，但在生态上并不好，不利于快速开发，协程对应响应式、Java&#x2F;Kotlin的响应式生态不完整，导致响应式无法被普遍使用，导致协程无法被广泛使用。（协程和异步响应式往往是对应的）</p>
+</blockquote>
+<blockquote>
+<p>JDK1.8是基于Observer&#x2F;Observable接口而实现的观察者模式，JDK9及以后，Observer&#x2F;Observable接口就被弃用了，取而代之的是Flow类(juc包下面的Flow)。（采用发布者订阅者模式并在两者之间建立订阅关系）</p>
+</blockquote>
+<p>响应式流规范可以总结为4个接⼝：<code>Publisher、Subscriber、Subscription和Processor</code>。<code>Publisher</code>负责⽣成数据，并将数据发送给<code>Subscription</code>（每个<code>Subscriber</code>对应⼀个<code>Subscription</code>）。一旦<code>Subscriber</code>订阅成功，就可以接收来⾃<code>Publisher</code>的事件。Publisher调⽤ onSubscribe() ⽅法时,会将Subscription对象传递给Subscriber。通过Subscription，Subscriber可以管理其订阅情况。Subscriber开始请求数据后，数据就会开始流经响应流，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面发布者订阅者相关类都是juc包下面的flow类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowDemo2</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1. 定义发布者, 发布的数据类型是 Integer</span></span><br><span class="line">        <span class="comment">// 直接使用jdk自带的SubmissionPublisher</span></span><br><span class="line">        SubmissionPublisher&lt;Integer&gt; publiser = <span class="keyword">new</span> <span class="title class_">SubmissionPublisher</span>&lt;Integer&gt;();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 2. 定义处理器, 对数据进行过滤, 并转换为String类型</span></span><br><span class="line">        <span class="type">MyProcessor</span> <span class="variable">processor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyProcessor</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 3. 发布者 和 处理器 建立订阅关系</span></span><br><span class="line">        publiser.subscribe(processor);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 4. 定义最终订阅者, 消费 String 类型数据</span></span><br><span class="line">        Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> <span class="title class_">Subscriber</span>&lt;String&gt;() &#123;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">private</span> Subscription subscription;</span><br><span class="line"> </span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSubscribe</span><span class="params">(Subscription subscription)</span> &#123;</span><br><span class="line">                <span class="comment">// 保存订阅关系, 需要用它来给发布者响应</span></span><br><span class="line">                <span class="built_in">this</span>.subscription = subscription;</span><br><span class="line"> </span><br><span class="line">                <span class="comment">// 请求一个数据</span></span><br><span class="line">                <span class="built_in">this</span>.subscription.request(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNext</span><span class="params">(String item)</span> &#123;</span><br><span class="line">                <span class="comment">// 接受到一个数据, 处理</span></span><br><span class="line">                System.out.println(<span class="string">&quot;接受到数据: &quot;</span> + item);</span><br><span class="line"> </span><br><span class="line">                <span class="comment">// 处理完调用request再请求一个数据</span></span><br><span class="line">                <span class="built_in">this</span>.subscription.request(<span class="number">1</span>);</span><br><span class="line"> </span><br><span class="line">                <span class="comment">// 或者 已经达到了目标, 调用cancel告诉发布者不再接受数据了</span></span><br><span class="line">                <span class="comment">// this.subscription.cancel();</span></span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onError</span><span class="params">(Throwable throwable)</span> &#123;</span><br><span class="line">                <span class="comment">// 出现了异常(例如处理数据的时候产生了异常)</span></span><br><span class="line">                throwable.printStackTrace();</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">                <span class="comment">// 我们可以告诉发布者, 后面不接受数据了</span></span><br><span class="line">                <span class="built_in">this</span>.subscription.cancel();</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onComplete</span><span class="params">()</span> &#123;</span><br><span class="line">                <span class="comment">// 全部数据处理完了(发布者关闭了)</span></span><br><span class="line">                System.out.println(<span class="string">&quot;处理完了!&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 5. 处理器 和 最终订阅者 建立订阅关系</span></span><br><span class="line">        processor.subscribe(subscriber);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 6. 生产数据, 并发布</span></span><br><span class="line">        <span class="comment">// 这里忽略数据生产过程</span></span><br><span class="line">        publiser.submit(-<span class="number">111</span>);</span><br><span class="line">        publiser.submit(<span class="number">111</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 7. 结束后 关闭发布者</span></span><br><span class="line">        <span class="comment">// 正式环境 应该放 finally 或者使用 try-resouce 确保关闭</span></span><br><span class="line">        publiser.close();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 主线程延迟停止, 否则数据没有消费就退出</span></span><br><span class="line">        Thread.currentThread().join(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Reactor项目的Flux和Mono"><a href="#Reactor项目的Flux和Mono" class="headerlink" title="Reactor项目的Flux和Mono"></a>Reactor项目的Flux和Mono</h4><p><code>Flux</code>和<code>Mono</code>都是数据流的发布者，使用<code>Flux</code>和<code>Mono</code>都可以发出三种数据信号：<strong>元素值、错误信号、完成信号</strong>，错误信号和完成信号都代表终止信号，终止信号用于告诉订阅者数据流结束了，错误信号终止数据流同时把错误信息传递给订阅者。</p>
+<blockquote>
+<p>tips : Mono和Flux的很多操作都是相同的，二者处理的数据量不同。Flux返回N个元素，Mono返回0或1个元素。Flux适用于处理多个元素，Mono适用于处理只有一个或没有元素的情况。</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-22.png" alt="alt text"><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/A_art_xiang/article/details/129578800">Flux和Mono的相关操作</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Flux&lt;String&gt; characterFlux = Flux</span><br><span class="line">        .just(<span class="string">&quot;Garfield&quot;</span>, <span class="string">&quot;Kojak&quot;</span>, <span class="string">&quot;Barbossa&quot;</span>)</span><br><span class="line">        .delayElements(Duration.ofMillis(<span class="number">500</span>)); <span class="comment">// 每500毫秒发布⼀个数据</span></span><br><span class="line"></span><br><span class="line">Flux&lt;String&gt; foodFlux = Flux</span><br><span class="line">        .just(<span class="string">&quot;Lasagna&quot;</span>, <span class="string">&quot;Lollipops&quot;</span>, <span class="string">&quot;Apples&quot;</span>)</span><br><span class="line">        .delaySubscription(Duration.ofMillis(<span class="number">250</span>)) <span class="comment">// 订阅后250毫秒后开始发布数据</span></span><br><span class="line">        .delayElements(Duration.ofMillis(<span class="number">500</span>)); <span class="comment">// 每500毫秒发布⼀个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使⽤mergeWith()⽅法，将两个Flux合并，合并过后的Flux数据项发布顺序与源Flux的发布时间⼀致</span></span><br><span class="line"><span class="comment">// Garfield Lasagna Kojak Lollipops Barbossa Apples</span></span><br><span class="line">Flux&lt;String&gt; mergedFlux = characterFlux.mergeWith(foodFlux);</span><br><span class="line"></span><br><span class="line">mergedFlux.subscribe(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻塞，等待结果</span></span><br><span class="line">Thread.sleep(<span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="异步机制"><a href="#异步机制" class="headerlink" title="异步机制"></a>异步机制</h4><h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p><strong>事件轮询机制</strong>在多个事件源或输入源之间检测和处理事件。轮询机制不断检查是否有新的事件发生，并根据检测到的事件作出相应处理。与事件驱动机制不同，事件轮询通过主动查询的方式来获取事件的状态，而不是等待事件自动触发。</p>
+<p>工作流程：</p>
+<ul>
+<li>创建一个轮询器，并为它指定一个或多个事件源（如文件、网络套接字、定时器等）。</li>
+<li>在循环中不断查询事件源的状态，检查是否有事件发生。</li>
+<li>一旦检测到事件，立即调用相应的处理程序来处理该事件。</li>
+</ul>
+<p>例如：程序启动后，初始化一个轮询器，用来检测多个客户端的连接。轮询器不断轮询客户端的连接状态，检测是否有新的请求。如果某个客户端有请求数据到达，轮询器立即调用对应的函数处理该请求。处理完之后继续轮询。</p>
+<h5 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h5><h6 id="1-NIO的非阻塞I-O模型"><a href="#1-NIO的非阻塞I-O模型" class="headerlink" title="1.NIO的非阻塞I&#x2F;O模型"></a>1.NIO的非阻塞I&#x2F;O模型</h6><ul>
+<li>在传统的阻塞I&#x2F;O中，程序通常需要为每一个客户端连接创建一个线程，每个线程阻塞等待I&#x2F;O操作完成（例如读或写操作）。这种模型在高并发场景下效率较低，因为线程数量的增加会导致大量的上下文切换和资源消耗。</li>
+<li>NIO 提供了一种非阻塞模式，程序不必阻塞等待 I&#x2F;O 操作完成。它允许在单个线程中管理多个通道（Channel），从而极大地提升了性能。</li>
+</ul>
+<h6 id="2-Selector与事件轮询"><a href="#2-Selector与事件轮询" class="headerlink" title="2.Selector与事件轮询"></a>2.Selector与事件轮询</h6><ul>
+<li>NIO的核心组件之一是<code>Selector</code>，它就是事件轮询机制的一个实现。<br><code>Selector</code>允许程序同时监控多个通道（如网络套接字）的状态。程序通过 <code>Selector</code>注册多个通道，然后可以在事件发生时轮询这些通道，处理其中的I&#x2F;O事件（如可读、可写等）。</li>
+<li>Selector 内部使用类似于操作系统提供的select()、poll()或epoll()等系统调用实现事件轮询机制，监听通道的状态变化。</li>
+</ul>
+<h6 id="3-具体工作流程"><a href="#3-具体工作流程" class="headerlink" title="3.具体工作流程"></a>3.具体工作流程</h6><ul>
+<li><strong>事件注册</strong>：Selector可以注册多个<code>Channel</code>，并指定关注的事件类型（如READ、WRITE等）。</li>
+<li><strong>事件轮询</strong>：Selector进入轮询循环，通过操作系统底层的事件轮询机制不断检查通道上是否有事件发生。</li>
+<li><strong>事件处理</strong>：当检测到有通道上有事件发生时，<code>Selector</code>将返回相应的事件，程序会调用相应的事件处理逻辑来处理这些I&#x2F;O事件。</li>
+</ul>
+<h6 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h6><p>NIO的<code>Selector</code>是Java中事件轮询机制的核心实现，依赖底层操作系统提供的 select()、poll() 或 epoll() 等机制来高效地管理大量 I&#x2F;O 通道的状态。通过事件轮询机制，NIO 能够在单个线程中处理多个I&#x2F;O事件，从而显著提升高并发场景下的性能和资源利用率。</p>
+<h5 id="select-、poll-和-epoll"><a href="#select-、poll-和-epoll" class="headerlink" title="select()、poll() 和 epoll()"></a>select()、poll() 和 epoll()</h5><h6 id="1-select"><a href="#1-select" class="headerlink" title="1.select()"></a>1.select()</h6><ul>
+<li>select() 通过将需要监控的文件描述符集合传递给内核，内核遍历这些文件描述符，检查它们是否可读、可写或者有异常发生。</li>
+<li>程序调用 select() 函数并传入一组文件描述符，内核会阻塞该调用，直到其中至少有一个文件描述符变为可用（如可读或可写），或超时发生。</li>
+<li>文件描述符通过三个<code>fd_set</code>集合来表示，分别用于<strong>读、写和异常事件</strong>的检测。</li>
+</ul>
+<p><strong>底层实现：</strong><br>select() 依赖于位图（bitmap）来表示每个文件描述符的状态。其实现方式是在每次调用时，遍历所有文件描述符，检查它们的状态变化。当事件发生时，内核更新位图并返回给用户空间程序。</p>
+<p><strong>不足:</strong></p>
+<ul>
+<li>文件描述符的数量有上限：通常为1024。</li>
+<li>每次调用select() 时，<strong>用户空间和内核空间之间需要复制文件描述符集合</strong>，这会导致性能瓶颈。</li>
+<li>select()会遍历整个文件描述符集合，即使只有少数几个文件描述符有事件发生，这种线性扫描会导致效率低下。</li>
+</ul>
+<h6 id="2-poll"><a href="#2-poll" class="headerlink" title="2.poll()"></a>2.poll()</h6><ul>
+<li>不同于<code>select()</code>使用位图表示文件描述符，<code>poll()</code>使用一个结构体数组**pollfd[]**来保存每个文件描述符及其感兴趣的事件。</li>
+<li>和<code>select()</code>一样，<code>poll()</code>的检查过程也是每次都会遍历整个文件描述符集合。</li>
+<li><code>poll()</code>会在用户空间和内核空间之间复制一个<code>pollfd</code>结构数组(所以每次调用poll时也会在用户态和内核态之间复制)，然后内核通过线性扫描检查每个文件描述符是否有事件发生。</li>
+<li><code>poll()</code>是水平触发的，即当某个文件描述符的状态改变后，如果不处理它，则每次调用<code>poll()</code>都会通知该文件描述符的状态变化。</li>
+</ul>
+<h6 id="3-epoll"><a href="#3-epoll" class="headerlink" title="3.epoll()"></a>3.epoll()</h6><p><strong>工作原理：</strong></p>
+<ul>
+<li><code>epoll()</code>是Linux专有的I&#x2F;O多路复用机制，是 select() 和 poll() 的改进版本。它在处理大量并发连接时效率更高，特别适合高并发场景。</li>
+<li><code>epoll()</code>除水平触发机制外，还有边缘触发：只在文件描述符的状态从不可用变为可用时才会通知程序。</li>
+</ul>
+<p><strong>底层实现：</strong></p>
+<ul>
+<li><strong>事件注册机制：</strong> <code>epoll()</code>首次调用时，用户通过<code>epoll_create()</code>创建一个<code>epoll</code>实例，然后通过<code>epoll_ctl()</code>将要监控的文件描述符注册到这个实例中。与<code>select()</code>和<code>poll()</code>每次调用时都需要传递文件描述符不同，<code>epoll()</code>将文件描述符注册一次，后续就可以直接通过事件通知机制来获取I&#x2F;O事件。</li>
+<li><strong>内核事件队列：</strong> <code>epoll</code>通过一个内核级事件队列来监控文件描述符的状态。当某个文件描述符有事件发生时，内核将该事件加入队列中，然后用户空间通过<code>epoll_wait()</code>来获取已发生的事件。</li>
+<li><code>epoll</code>使用<strong>红黑树</strong>来管理文件描述符，以实现高效的增删操作,事件发生时，内核将事件加入双向链表中，避免了遍历整个文件描述符集合。</li>
+</ul>
+<h6 id="区别总结："><a href="#区别总结：" class="headerlink" title="区别总结："></a>区别总结：</h6><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-23.png" alt="alt text"></p>
+<h4 id="Spring-WebFlux对响应式编程（异步）的支持"><a href="#Spring-WebFlux对响应式编程（异步）的支持" class="headerlink" title="Spring WebFlux对响应式编程（异步）的支持"></a>Spring WebFlux对响应式编程（异步）的支持</h4><blockquote>
+<p>tips: WebFlux的默认嵌⼊式服务器是Netty⽽不是Tomcat。Netty是⼀个异步、事件驱动的服务器，⾮常适合Spring WebFlux这样的反应式Web框架。</p>
+</blockquote>
+<p>传统的基于Servlet的Web框架，如Spring MVC,在本质上都是阻塞和多线程的，每个连接都会使用一个线程。在请求处理的时候，会在线程池中拉取一个工作者( worker )线程来对请求进行处理。同时，请求线程是阻塞的，直到工作者线程提示它已经完成为止。</p>
+<p>在Spring5中，引入了一个新的<strong>异步、非阻塞的WEB</strong>模块，就是Spring-WebFlux。该框架在很大程度上是<strong>基于Reactor项目</strong>的，能够解决Web应用和API中对更好的可扩展性的需求。</p>
+<p>异步的Web框架能够以更少的线程获得更⾼的可扩展性，通常它们只需要与CPU核⼼数量相同的线程。通过使⽤所谓的事件轮询（event looping）机制，这些框架能够⽤⼀个线程处理很多请求，这样每次连接的成本会更低。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟数据库存储</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, User&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UserService</span><span class="params">()</span> &#123;</span><br><span class="line">        map.put(<span class="number">1</span>, <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;zhangsan&quot;</span>));</span><br><span class="line">        map.put(<span class="number">2</span>, <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;lisi&quot;</span>));</span><br><span class="line">        map.put(<span class="number">3</span>, <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;wangwu&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据id查询</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;User&gt; <span class="title function_">getById</span><span class="params">(Integer id)</span>&#123;</span><br><span class="line">        <span class="comment">// 返回数据或空值</span></span><br><span class="line">        <span class="keyword">return</span> Mono.justOrEmpty(map.get(id));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询多个</span></span><br><span class="line">    <span class="keyword">public</span> Flux&lt;User&gt; <span class="title function_">getAll</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Flux.fromIterable(map.values());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">save</span><span class="params">(Mono&lt;User&gt; userMono)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userMono.doOnNext(user -&gt; &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">id</span> <span class="operator">=</span> map.size() + <span class="number">1</span>;</span><br><span class="line">            map.put(id, user);</span><br><span class="line">        &#125;).thenEmpty(Mono.empty()); <span class="comment">// 最后置空</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SpirngWebFlux一般用于SpringCloud-Gateway网关，用于处理请求、路由转发等功能。</strong></p>
+<h3 id="try-with-resources"><a href="#try-with-resources" class="headerlink" title="try-with-resources"></a>try-with-resources</h3><p>在try-with-resources内的资源，需要释放的资源（比如 BufferedReader）实现了 AutoCloseable接口。</p>
+<h2 id="day06"><a href="#day06" class="headerlink" title="day06"></a>day06</h2><h3 id="使用枚举类的方法"><a href="#使用枚举类的方法" class="headerlink" title="使用枚举类的方法"></a>使用枚举类的方法</h3><p>直接枚举类名.加上枚举字段名加上get方法。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.dpdpblog.online">DPDP</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.dpdpblog.online/2024/09/09/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week06/">https://www.dpdpblog.online/2024/09/09/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week06/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.dpdpblog.online" target="_blank">学习杂记</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/07/10/CWtjN4LSmrgbn2O.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%97%A5%E5%BF%97week06/" title="大模型日志week02"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/07/10/5iQM4IOeEqPs9oT.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大模型日志week02</div></div></a></div><div class="next-post pull-right"><a href="/2024/09/02/%E5%90%8E%E7%AB%AF%E6%97%A5%E5%BF%97week05/" title="后端日志-week05"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/07/10/52NHQoeG3mBMtT4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">后端日志-week05</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DPDP</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ldphenshuai"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ldphenshuai" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#day01"><span class="toc-number">1.</span> <span class="toc-text">day01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL查询语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E5%8E%BB%E9%87%8D"><span class="toc-number">1.1.1.</span> <span class="toc-text">查询结果去重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E9%99%90%E5%88%B6%E8%BF%94%E5%9B%9E%E8%A1%8C%E6%95%B0"><span class="toc-number">1.1.2.</span> <span class="toc-text">查询结果限制返回行数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%AD%89%E4%BA%8E%E7%9A%84%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95"><span class="toc-number">1.1.3.</span> <span class="toc-text">不等于的几种写法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E5%80%BC%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-number">1.1.4.</span> <span class="toc-text">空值的过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#or%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.5.</span> <span class="toc-text">or的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sql%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.6.</span> <span class="toc-text">sql中的字符匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.7.</span> <span class="toc-text">聚合函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.1.8.</span> <span class="toc-text">连接查询与子查询</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#join"><span class="toc-number">1.1.8.1.</span> <span class="toc-text">join</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.8.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E6%97%B6where%E5%92%8Con%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.8.3.</span> <span class="toc-text">在进行连接操作时where和on的区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Union%E4%B8%8EUnion-all%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88or%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E6%97%B6%EF%BC%8C%E8%80%83%E8%99%91Union%EF%BC%89"><span class="toc-number">1.1.9.</span> <span class="toc-text">Union与Union all的使用（or不走索引时，考虑Union）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IF%E3%80%81CASE-WHEN%E3%80%81COALESCE%E7%AD%89%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.10.</span> <span class="toc-text">IF、CASE WHEN、COALESCE等函数的使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day03"><span class="toc-number">2.</span> <span class="toc-text">day03</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-WebFlux"><span class="toc-number">2.1.</span> <span class="toc-text">Spring-WebFlux</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">响应式编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reactor%E9%A1%B9%E7%9B%AE%E7%9A%84Flux%E5%92%8CMono"><span class="toc-number">2.1.2.</span> <span class="toc-text">Reactor项目的Flux和Mono</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">2.1.3.</span> <span class="toc-text">异步机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">事件轮询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#NIO"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">NIO</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-NIO%E7%9A%84%E9%9D%9E%E9%98%BB%E5%A1%9EI-O%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.3.2.1.</span> <span class="toc-text">1.NIO的非阻塞I&#x2F;O模型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-Selector%E4%B8%8E%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2"><span class="toc-number">2.1.3.2.2.</span> <span class="toc-text">2.Selector与事件轮询</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E5%85%B7%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.3.2.3.</span> <span class="toc-text">3.具体工作流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">2.1.3.2.4.</span> <span class="toc-text">4.总结</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#select-%E3%80%81poll-%E5%92%8C-epoll"><span class="toc-number">2.1.3.3.</span> <span class="toc-text">select()、poll() 和 epoll()</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-select"><span class="toc-number">2.1.3.3.1.</span> <span class="toc-text">1.select()</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-poll"><span class="toc-number">2.1.3.3.2.</span> <span class="toc-text">2.poll()</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-epoll"><span class="toc-number">2.1.3.3.3.</span> <span class="toc-text">3.epoll()</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">2.1.3.3.4.</span> <span class="toc-text">区别总结：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring-WebFlux%E5%AF%B9%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88%E5%BC%82%E6%AD%A5%EF%BC%89%E7%9A%84%E6%94%AF%E6%8C%81"><span class="toc-number">2.1.4.</span> <span class="toc-text">Spring WebFlux对响应式编程（异步）的支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try-with-resources"><span class="toc-number">2.2.</span> <span class="toc-text">try-with-resources</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#day06"><span class="toc-number">3.</span> <span class="toc-text">day06</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">使用枚举类的方法</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By DPDP</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">希望你还有旺盛的生活欲望。<p><a target="_blank" href="https://hexo.io/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
